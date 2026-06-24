@@ -1,0 +1,117 @@
+{
+  "info": {
+    "name": "Laravel Appointment API",
+    "description": "CRUD API для сутності Appointment, реалізований на Laravel 11 (Eloquent ORM). Базовий URL: http://localhost:8001/api/appointments",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8001"
+    },
+    {
+      "key": "appointmentId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Get all appointments",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/appointments",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "appointments"]
+        },
+        "description": "Повертає список усіх записів Appointment."
+      },
+      "response": []
+    },
+    {
+      "name": "Get appointment by id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/appointments/{{appointmentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "appointments", "{{appointmentId}}"]
+        },
+        "description": "Повертає один запис Appointment за id. Повертає 404, якщо запис не знайдено."
+      },
+      "response": []
+    },
+    {
+      "name": "Create appointment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"client_name\": \"Олена Сидоренко\",\n  \"service_name\": \"Огляд\",\n  \"appointment_date\": \"2026-07-02 14:00:00\",\n  \"status\": \"scheduled\",\n  \"notes\": \"Повторний візит\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/appointments",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "appointments"]
+        },
+        "description": "Створює новий запис Appointment. Обов'язкові поля: client_name, service_name, appointment_date, status. Поле notes - необов'язкове. Повертає 201 при успіху, 422 - якщо валідація не пройшла."
+      },
+      "response": []
+    },
+    {
+      "name": "Update appointment (partial)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"completed\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/appointments/{{appointmentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "appointments", "{{appointmentId}}"]
+        },
+        "description": "Частково оновлює запис Appointment за id. Можна передати будь-яке підмножина полів (client_name, service_name, appointment_date, status, notes). Повертає 404, якщо запис не знайдено."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete appointment",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/appointments/{{appointmentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "appointments", "{{appointmentId}}"]
+        },
+        "description": "Видаляє запис Appointment за id. Повертає 200 з повідомленням про успішне видалення, або 404, якщо запис не знайдено."
+      },
+      "response": []
+    }
+  ]
+}
